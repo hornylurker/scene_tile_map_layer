@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbb0hw8ygbhrd"]
+
+[ext_resource type="Script" uid="uid://x8u60qdw0rqt" path="res://addons/scene_tilemap_editor_plugin/scene_tile_map_pannel.gd" id="1_g2gdq"]
+
+[node name="SceneTileMapPannel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_g2gdq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Mode"
+
+[node name="DrawBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Draw"
+alignment = 0
+
+[node name="SelectBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select"
+alignment = 0
+
+[connection signal="pressed" from="VBoxContainer/DrawBtn" to="." method="_on_draw_pressed"]
+[connection signal="pressed" from="VBoxContainer/SelectBtn" to="." method="_on_select_pressed"]

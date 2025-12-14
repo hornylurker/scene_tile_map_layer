@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddkha5yb3ak3m"]
+
+[ext_resource type="Script" uid="uid://bt6qksf81f74a" path="res://addons/scene_tilemap_editor_plugin/grid_overlay.gd" id="1_l6qdt"]
+
+[node name="GridOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l6qdt")
