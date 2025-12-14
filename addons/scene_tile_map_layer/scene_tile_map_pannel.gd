@@ -2,12 +2,10 @@
 class_name SceneTileMapPannel
 extends Control
 
-@export var scene_tile_map: SceneTileMapLayer
-@onready var label: Label = $VBoxContainer/Label
+var grid_overlay: GridOverlay
 
 func _on_draw_pressed() -> void:
-	scene_tile_map.mode = scene_tile_map.Mode.DRAW
-
+	grid_overlay.set_mode(GridOverlay.Mode.DRAW)
 
 func _on_select_pressed() -> void:
-	scene_tile_map.mode = scene_tile_map.Mode.SELECT
+	grid_overlay.set_mode(GridOverlay.Mode.SELECT)

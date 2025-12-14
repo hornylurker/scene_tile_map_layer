@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://7gcufqg3e845"]
+[gd_scene load_steps=3 format=3 uid="uid://7gcufqg3e845"]
 
 [ext_resource type="Script" uid="uid://bdn8a2ygt0y8" path="res://addons/scene_tile_map_layer/scene_tile_map_layer.gd" id="1_d6po2"]
 [ext_resource type="PackedScene" uid="uid://df2rjqj23abjy" path="res://demo/scenes/scene_1.tscn" id="2_ytiva"]
-[ext_resource type="Script" uid="uid://cv2v71r48u41n" path="res://demo/scenes/scene_1.gd" id="3_dar0o"]
 
 [node name="Demo" type="Node2D"]
 
@@ -14,71 +13,59 @@ tileset = Dictionary[String, PackedScene]({
 active_scene_key = "Scene1"
 metadata/_custom_type_script = "uid://bdn8a2ygt0y8"
 
-[node name="@Node2D@30410" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30410" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(-32, -32)
 rotation = 1.5707964
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@30411" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30411" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(-32, -96)
 rotation = 1.5707964
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@30412" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30412" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(-32, -160)
 rotation = 1.5707964
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@30416" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30416" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(32, 32)
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@30417" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30417" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(96, 32)
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@30418" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30418" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(160, 32)
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@30600" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30600" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(32, -224)
-script = ExtResource("3_dar0o")
 color = Color(0.29803923, 0.30980393, 1, 1)
 
-[node name="@Node2D@30601" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30601" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(96, -224)
-script = ExtResource("3_dar0o")
 color = Color(0.29803923, 0.30980393, 1, 1)
 
-[node name="@Node2D@30602" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@30602" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(160, -224)
-script = ExtResource("3_dar0o")
 color = Color(0.29803923, 0.30980393, 1, 1)
 
-[node name="@Node2D@32486" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@32486" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(224, -160)
 rotation = -1.5707964
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@32487" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@32487" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(224, -96)
 rotation = -1.5707964
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@32488" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@32488" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(224, -32)
 rotation = -1.5707964
-script = ExtResource("3_dar0o")

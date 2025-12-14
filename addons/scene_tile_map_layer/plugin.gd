@@ -29,21 +29,21 @@ func _on_selection_changed():
 	var nodes = selection.get_selected_nodes()
 	if nodes.size() == 1 and nodes[0] is SceneTileMapLayer:
 		if current_tilemap != nodes[0]:
-			if current_tilemap != null:
-				current_tilemap.disable()
 			current_tilemap = nodes[0]
 			if scene_tile_map_pannel == null:
-				scene_tile_map_pannel = preload("res://addons/scene_tile_map_layer/scene_tile_map_pannel.tscn").instantiate()
+				scene_tile_map_pannel = preload(
+					"res://addons/scene_tile_map_layer/scene_tile_map_pannel.tscn"
+				).instantiate()
 				add_control_to_bottom_panel(scene_tile_map_pannel, "Scene TileMap")
-			current_tilemap.enable(grid_overlay, scene_tile_map_pannel)
-	elif current_tilemap != null:
-		current_tilemap.disable()
+			scene_tile_map_pannel.grid_overlay = grid_overlay
+			grid_overlay.set_tilemap_layer(current_tilemap)
+	else:
 		current_tilemap = null
+		if grid_overlay.enabled:
+			grid_overlay.clear_tilemap_layer()
 
 func _handles(object: Object) -> bool:
 	return true
 
 func _forward_canvas_gui_input(event: InputEvent) -> bool:
-	if current_tilemap:
-		return current_tilemap.handle_gui_input(event)
-	return false
+	return grid_overlay.handle_gui_input(event)
