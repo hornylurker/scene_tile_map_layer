@@ -119,6 +119,12 @@ func handle_gui_input(event: InputEvent) -> bool:
 				undo_redo.commit_action()
 			elif mode == Mode.SELECT:
 				select_scene_at(tile)
+		elif event.button_index == 2 and event.pressed == false:
+			var tile := get_tile_by_event(event)
+			if mode == Mode.DRAW:
+				undo_redo.create_action("Remove tile")
+				undo_redo_remove_scenes_at(tile)
+				undo_redo.commit_action()
 		return true
 	return false
 

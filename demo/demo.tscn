@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://7gcufqg3e845"]
+[gd_scene load_steps=4 format=3 uid="uid://7gcufqg3e845"]
 
 [ext_resource type="Script" uid="uid://bdn8a2ygt0y8" path="res://addons/scene_tile_map_layer/scene_tile_map_layer.gd" id="1_d6po2"]
 [ext_resource type="PackedScene" uid="uid://df2rjqj23abjy" path="res://demo/scenes/scene_1.tscn" id="2_ytiva"]
+[ext_resource type="Script" uid="uid://cv2v71r48u41n" path="res://demo/scenes/scene_1.gd" id="3_dar0o"]
 
 [node name="Demo" type="Node2D"]
 
@@ -18,19 +19,10 @@ z_index = 10
 position = Vector2(-32, -32)
 rotation = 1.5707964
 
-[node name="@Node2D@30411" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
-z_index = 10
-position = Vector2(-32, -96)
-rotation = 1.5707964
-
 [node name="@Node2D@30412" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(-32, -160)
 rotation = 1.5707964
-
-[node name="@Node2D@30416" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
-z_index = 10
-position = Vector2(32, 32)
 
 [node name="@Node2D@30417" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
@@ -69,3 +61,14 @@ rotation = -1.5707964
 z_index = 10
 position = Vector2(224, -32)
 rotation = -1.5707964
+
+[node name="_preview_node_tscn_key" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+z_index = 10
+position = Vector2(32, 32)
+script = ExtResource("3_dar0o")
+
+[node name="@Node2D@27684" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+z_index = 10
+position = Vector2(-32, -96)
+rotation = 1.5707964
+script = ExtResource("3_dar0o")
