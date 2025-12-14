@@ -29,12 +29,13 @@ var mode: Mode = Mode.SELECT:
 		return mode
 	set(value):
 		mode = value
-		if mode == Mode.DRAW:
-			show_preview()
-			show_preview_node_properties()
-		elif mode == Mode.SELECT:
-			hide_preview()
-			EditorInterface.get_inspector().edit(self)
+		if Engine.is_editor_hint():
+			if mode == Mode.DRAW:
+				show_preview()
+				show_preview_node_properties()
+			elif mode == Mode.SELECT:
+				hide_preview()
+				EditorInterface.get_inspector().edit(self)
 
 var grid_overlay: GridOverlay = null
 var scene_tile_map_pannel: SceneTileMapPannel
@@ -64,12 +65,14 @@ func init_preview():
 	if preview_node.get_parent():
 		preview_node.get_parent().remove_child(preview_node)
 	preview_node.name = '_preview_node_tscn_key'
+	preview_node.z_index = 10
 
 func clone_preview(scene: Node2D):
 	preview_node = scene.duplicate()
 	if preview_node.get_parent():
 		preview_node.get_parent().remove_child(preview_node)
 	preview_node.name = '_preview_node_tscn_key'
+	preview_node.z_index = 10
 
 func show_preview():
 	if preview_node == null:

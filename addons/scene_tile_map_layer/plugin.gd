@@ -33,7 +33,7 @@ func _on_selection_changed():
 				current_tilemap.disable()
 			current_tilemap = nodes[0]
 			if scene_tile_map_pannel == null:
-				scene_tile_map_pannel = preload("res://addons/scene_tilemap_editor_plugin/scene_tile_map_pannel.tscn").instantiate()
+				scene_tile_map_pannel = preload("res://addons/scene_tile_map_layer/scene_tile_map_pannel.tscn").instantiate()
 				add_control_to_bottom_panel(scene_tile_map_pannel, "Scene TileMap")
 			current_tilemap.enable(grid_overlay, scene_tile_map_pannel)
 	elif current_tilemap != null:
