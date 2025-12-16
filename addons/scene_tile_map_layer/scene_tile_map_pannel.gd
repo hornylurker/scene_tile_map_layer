@@ -49,6 +49,8 @@ func use_scene(key: String):
 
 func show_pannel_preview():
 	remove_children(scene_preview)
+	if grid_overlay.preview_node == null:
+		return
 	var scene = grid_overlay.preview_node.duplicate()
 	if scene.get_parent():
 		scene.get_parent().remove_child(scene)

@@ -21,8 +21,6 @@ var tilemap_layer: SceneTileMapLayer = null:
 		return tilemap_layer
 	set(value):
 		tilemap_layer = value
-		if value != null:
-			init_preview()
 		tilemap_layer_changed.emit(value)
 var preview_node: Node2D
 var undo_redo: EditorUndoRedoManager
@@ -109,10 +107,14 @@ func clear_tilemap_layer() -> void:
 func set_mode(new_mode: Mode) -> void:
 	mode = new_mode
 	if mode == Mode.DRAW:
-		preview_node.visible = true
-		show_preview_node_properties()
+		if preview_node != null:
+			preview_node.visible = true
+			show_preview_node_properties()
+		else:
+			push_warning('Scene for drawing not specified. Use scene from tileset or select node from tilemap layer.')
 	elif mode == Mode.SELECT:
-		preview_node.visible = false
+		if preview_node != null:
+			preview_node.visible = false
 		if tilemap_layer:
 			EditorInterface.get_inspector().edit(tilemap_layer)
 
@@ -147,41 +149,27 @@ func handle_gui_input(event: InputEvent) -> bool:
 		return true
 	return false
 
-func init_preview():
-	var old_pos := Vector2.ZERO
-	if preview_node != null:
-		old_pos = preview_node.position
-		preview_node.queue_free()
-	preview_node = tilemap_layer.tileset[tilemap_layer.active_scene_key].instantiate()
-	if preview_node.get_parent():
-		preview_node.get_parent().remove_child(preview_node)
-	preview_node.name = '_preview_node_tscn_key'
-	preview_node.z_index = 10
-	preview_node.position = old_pos
-	preview_node.visible = mode == Mode.DRAW
-	_add_preview()
+func init_preview(key: String):
+	_make_preview(tilemap_layer.tileset[key].instantiate())
 
 func clone_preview(scene: Node2D):
+	_make_preview(scene.duplicate())
+
+func _make_preview(scene: Node2D):
 	var old_pos := Vector2.ZERO
 	if preview_node != null:
 		old_pos = preview_node.position
 		preview_node.queue_free()
-	preview_node = scene.duplicate()
+	preview_node = scene
 	if preview_node.get_parent():
 		preview_node.get_parent().remove_child(preview_node)
 	preview_node.name = '_preview_node_tscn_key'
 	preview_node.z_index = 10
 	preview_node.position = old_pos
 	preview_node.visible = mode == Mode.DRAW
-	_add_preview()
-
-func _add_preview(): # TODO: check
 	assert(preview_node != null)
-	if preview_node.get_parent() == self:
-		return
 	assert(not preview_node.get_parent())
 	add_child(preview_node)
-
 
 func show_preview_node_properties():
 	EditorInterface.get_inspector().edit(preview_node)
@@ -223,24 +211,14 @@ func select_scene_at(tile: Vector2i) -> void:
 	var scenes := get_scenes_at(tile)
 	if scenes.size() == 0:
 		return
-
 	if scenes.size() > 1:
 		push_error("Can't select scene at tile %s because it contains more than one scene" % str(tile))
 		return
-
-	var scene: Node = scenes[0]
-	var scene_path = scene.scene_file_path
-	for key in tilemap_layer.tileset:
-		var packed: PackedScene = tilemap_layer.tileset[key]
-		if scene_path == packed.resource_path:
-			tilemap_layer.active_scene_key = key
-			clone_preview(scene)
-			show_preview_node_properties()
-			break
+	clone_preview(scenes[0])
+	show_preview_node_properties()
 
 func select_scene_by_key(key: String):
-	tilemap_layer.active_scene_key = key
-	init_preview()
+	init_preview(key)
 	show_preview_node_properties()
 
 func add_scene_to_tileset(key: String, node: Node2D):
