@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://bleq38aow0js"]
+
+[ext_resource type="Script" uid="uid://d1h0n2axmfxo3" path="res://addons/scene_tile_map_layer/pannel_row.gd" id="1_myoup"]
+
+[node name="PannelRow" type="Control"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_myoup")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="SceneTemplate" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/SceneTemplate"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 1
+
+[node name="DeleteBtn" type="Button" parent="MarginContainer/SceneTemplate"]
+layout_mode = 2
+text = "Delete"
+
+[node name="UseBtn" type="Button" parent="MarginContainer/SceneTemplate"]
+layout_mode = 2
+text = "Use"
+
+[node name="RenameBtn" type="Button" parent="MarginContainer/SceneTemplate"]
+visible = false
+layout_mode = 2
+text = "Rename"
+
+[connection signal="pressed" from="MarginContainer/SceneTemplate/DeleteBtn" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/SceneTemplate/UseBtn" to="." method="_on_use_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/SceneTemplate/RenameBtn" to="." method="_on_rename_btn_pressed"]

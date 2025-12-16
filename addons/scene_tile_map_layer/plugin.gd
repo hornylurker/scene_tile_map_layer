@@ -5,6 +5,7 @@ var grid_overlay: GridOverlay = null
 var current_tilemap: SceneTileMapLayer = null
 var selection: EditorSelection
 var scene_tile_map_pannel: Control
+var scene_tile_map_pannel_added := false
 
 func _enter_tree():
 	grid_overlay = GridOverlay.new(
@@ -14,6 +15,11 @@ func _enter_tree():
 		-1)
 	EditorInterface.get_editor_viewport_2d().add_child(grid_overlay)
 
+	scene_tile_map_pannel = preload(
+		"res://addons/scene_tile_map_layer/scene_tile_map_pannel.tscn"
+	).instantiate()
+	scene_tile_map_pannel.grid_overlay = grid_overlay
+				
 	selection = EditorInterface.get_selection()
 	selection.selection_changed.connect(_on_selection_changed)
 
@@ -30,12 +36,9 @@ func _on_selection_changed():
 	if nodes.size() == 1 and nodes[0] is SceneTileMapLayer:
 		if current_tilemap != nodes[0]:
 			current_tilemap = nodes[0]
-			if scene_tile_map_pannel == null:
-				scene_tile_map_pannel = preload(
-					"res://addons/scene_tile_map_layer/scene_tile_map_pannel.tscn"
-				).instantiate()
-				add_control_to_bottom_panel(scene_tile_map_pannel, "Scene TileMap")
-			scene_tile_map_pannel.grid_overlay = grid_overlay
+			if not scene_tile_map_pannel_added:
+				add_control_to_bottom_panel(scene_tile_map_pannel, "SceneTileMap")
+				scene_tile_map_pannel_added = true
 			grid_overlay.set_tilemap_layer(current_tilemap)
 	else:
 		current_tilemap = null

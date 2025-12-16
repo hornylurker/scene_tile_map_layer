@@ -2,16 +2,17 @@
 
 [ext_resource type="Script" uid="uid://bdn8a2ygt0y8" path="res://addons/scene_tile_map_layer/scene_tile_map_layer.gd" id="1_d6po2"]
 [ext_resource type="PackedScene" uid="uid://df2rjqj23abjy" path="res://demo/scenes/scene_1.tscn" id="2_ytiva"]
-[ext_resource type="Script" uid="uid://cv2v71r48u41n" path="res://demo/scenes/scene_1.gd" id="3_dar0o"]
+
+[sub_resource type="TileSet" id="TileSet_ytiva"]
 
 [node name="Demo" type="Node2D"]
 
 [node name="SceneTileMapLayer" type="Node2D" parent="."]
 script = ExtResource("1_d6po2")
 tileset = Dictionary[String, PackedScene]({
-"Scene1": ExtResource("2_ytiva")
+"res://demo/scenes/scene_1.tscn": ExtResource("2_ytiva")
 })
-active_scene_key = "Scene1"
+active_scene_key = "res://demo/scenes/scene_1.tscn"
 metadata/_custom_type_script = "uid://bdn8a2ygt0y8"
 
 [node name="@Node2D@30410" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
@@ -62,13 +63,14 @@ z_index = 10
 position = Vector2(224, -32)
 rotation = -1.5707964
 
-[node name="_preview_node_tscn_key" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="_preview_node_tscn_key" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(32, 32)
-script = ExtResource("3_dar0o")
 
-[node name="@Node2D@27684" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+[node name="@Node2D@27684" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
 z_index = 10
 position = Vector2(-32, -96)
 rotation = 1.5707964
-script = ExtResource("3_dar0o")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_ytiva")
