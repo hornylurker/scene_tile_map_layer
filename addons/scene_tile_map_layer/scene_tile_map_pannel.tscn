@@ -37,45 +37,61 @@ layout_mode = 2
 text = "Select"
 alignment = 0
 
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Header"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label2" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "View"
+
+[node name="SceneLoaderContainer" type="Control" parent="VBoxContainer/Header"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="LoadBtn" type="Button" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "Load"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Header"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label3" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "Write"
+
+[node name="SceneKeyInput" type="TextEdit" parent="VBoxContainer/Header"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="AddBtn" type="Button" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "Add
+"
+
 [node name="Body" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ScenesPanel" type="VBoxContainer" parent="VBoxContainer/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Buttons" type="HBoxContainer" parent="VBoxContainer/Body/ScenesPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Body/ScenesPanel"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="SceneLoaderContainer" type="Control" parent="VBoxContainer/Body/ScenesPanel/Buttons"]
-custom_minimum_size = Vector2(300, 0)
+[node name="ScenesList" type="VBoxContainer" parent="VBoxContainer/Body/ScenesPanel/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="LoadBtn" type="Button" parent="VBoxContainer/Body/ScenesPanel/Buttons"]
-layout_mode = 2
-text = "Load"
-
-[node name="Label" type="Label" parent="VBoxContainer/Body/ScenesPanel/Buttons"]
-layout_mode = 2
-text = "New key: "
-
-[node name="SceneKeyInput" type="TextEdit" parent="VBoxContainer/Body/ScenesPanel/Buttons"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-
-[node name="AddBtn" type="Button" parent="VBoxContainer/Body/ScenesPanel/Buttons"]
-layout_mode = 2
-text = "Add
-"
-
-[node name="ScenesList" type="VBoxContainer" parent="VBoxContainer/Body/ScenesPanel"]
-layout_mode = 2
-
-[node name="PannelRow" parent="VBoxContainer/Body/ScenesPanel/ScenesList" instance=ExtResource("2_f85vy")]
+[node name="PannelRow" parent="VBoxContainer/Body/ScenesPanel/ScrollContainer/ScenesList" instance=ExtResource("2_f85vy")]
 layout_mode = 2
 key = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"
 
-[node name="PannelRow2" parent="VBoxContainer/Body/ScenesPanel/ScenesList" instance=ExtResource("2_f85vy")]
+[node name="PannelRow2" parent="VBoxContainer/Body/ScenesPanel/ScrollContainer/ScenesList" instance=ExtResource("2_f85vy")]
 layout_mode = 2
 key = "asdf"
 
@@ -93,7 +109,15 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Panel" type="Panel" parent="VBoxContainer/Body/ScenePreview"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="pressed" from="VBoxContainer/Header/DrawBtn" to="." method="_on_draw_pressed"]
 [connection signal="pressed" from="VBoxContainer/Header/SelectBtn" to="." method="_on_select_pressed"]
-[connection signal="pressed" from="VBoxContainer/Body/ScenesPanel/Buttons/LoadBtn" to="." method="_on_load_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/Body/ScenesPanel/Buttons/AddBtn" to="." method="_on_add_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/Header/LoadBtn" to="." method="_on_load_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/Header/AddBtn" to="." method="_on_add_btn_pressed"]

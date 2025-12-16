@@ -4,11 +4,11 @@ extends Control
 
 @onready var grid_overlay: GridOverlay
 @onready var header: HBoxContainer = $VBoxContainer/Header
-@onready var scenes_list: VBoxContainer = $VBoxContainer/Body/ScenesPanel/ScenesList
+@onready var scenes_list: VBoxContainer = $VBoxContainer/Body/ScenesPanel/ScrollContainer/ScenesList
 var scene_picker: EditorResourcePicker
-@onready var scene_loader_container: Control = $VBoxContainer/Body/ScenesPanel/Buttons/SceneLoaderContainer
+@onready var scene_loader_container: Control = $VBoxContainer/Header/SceneLoaderContainer
 @onready var scene_preview: Control = $VBoxContainer/Body/ScenePreview/CenterContainer
-@onready var scene_key_input: TextEdit = $VBoxContainer/Body/ScenesPanel/Buttons/SceneKeyInput
+@onready var scene_key_input: TextEdit = $VBoxContainer/Header/SceneKeyInput
 
 func _ready() -> void:
 	if grid_overlay:
@@ -28,10 +28,13 @@ func on_tilemap_layer_changed(tilemap_layer: SceneTileMapLayer) -> void:
 	show_scenes_list()
 	show_preview()
 
+func remove_children(node: Node):
+	for child in node.get_children():
+		node.remove_child(child)
+
 func show_scenes_list():
 	const PANNEL_ROW = preload("uid://bleq38aow0js")
-	for child in scenes_list.get_children():
-		scenes_list.remove_child(child)
+	remove_children(scenes_list)
 	for key in grid_overlay.tilemap_layer.tileset:
 		var scene: SceneTileMapPannelRow = PANNEL_ROW.instantiate()
 		scene.key = key
@@ -44,12 +47,14 @@ func use_scene(key: String):
 	show_preview()
 
 func show_preview():
+	remove_children(scene_preview)
 	var scene = grid_overlay.preview_node.duplicate()
 	if scene.get_parent():
 		scene.get_parent().remove_child(scene)
 	scene.visible = true
 	scene_preview.add_child(scene)
-	
+	scene.position = Vector2.ZERO
+
 func delete_scene(key: String):
 	grid_overlay.tilemap_layer.tileset.erase(key)
 	show_scenes_list()

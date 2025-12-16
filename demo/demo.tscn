@@ -28,7 +28,7 @@ tileset = Dictionary[String, PackedScene]({
 "pink": SubResource("PackedScene_onu7k"),
 "res://demo/scenes/scene_1.tscn": ExtResource("2_ytiva")
 })
-active_scene_key = "pink"
+active_scene_key = "res://demo/scenes/scene_1.tscn"
 metadata/_custom_type_script = "uid://bdn8a2ygt0y8"
 
 [node name="@Node2D@30410" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]

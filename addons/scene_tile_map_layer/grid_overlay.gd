@@ -249,14 +249,14 @@ func undo_redo_place_scene_at(tile: Vector2i) -> void:
 
 func undo_redo_remove_scenes_at(tile: Vector2i) -> void:
 	for child in get_scenes_at(tile):
-		var data = undo_redo_pack_node(child)
+		var data = pack_node(child)
 		undo_redo.add_do_method(child, "queue_free")
 		undo_redo.add_undo_method(self, "undo_redo_restore_child", data)
 
-func undo_redo_pack_node(child: Node):
+func pack_node(child: Node):
 	var packed := PackedScene.new()
 	packed.pack(child)
-	assert(not child.get_parent())
+	assert(child.get_parent() != null)
 	return {
 		"scene": packed,
 		"parent": child.get_parent(),
