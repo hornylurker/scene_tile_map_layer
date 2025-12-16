@@ -20,8 +20,9 @@ var tilemap_layer: SceneTileMapLayer = null:
 		return tilemap_layer
 	set(value):
 		tilemap_layer = value
+		if value != null:
+			init_preview()
 		tilemap_layer_changed.emit(value)
-		init_preview()
 var preview_node: Node2D
 var undo_redo: EditorUndoRedoManager
 
@@ -231,6 +232,12 @@ func select_scene_by_key(key: String):
 	tilemap_layer.active_scene_key = key
 	init_preview()
 	show_preview_node_properties()
+
+func add_scene_to_tileset(key: String, node: Node2D):
+	assert(node != null)
+	var packed := PackedScene.new()
+	packed.pack(node)
+	tilemap_layer.tileset[key] = packed
 
 func undo_redo_place_scene_at(tile: Vector2i) -> void:
 	var scene = preview_node.duplicate()

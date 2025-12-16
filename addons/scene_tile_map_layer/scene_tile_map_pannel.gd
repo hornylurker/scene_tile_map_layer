@@ -26,6 +26,7 @@ func on_tilemap_layer_changed(tilemap_layer: SceneTileMapLayer) -> void:
 	if tilemap_layer == null:
 		return
 	show_scenes_list()
+	show_preview()
 
 func show_scenes_list():
 	const PANNEL_ROW = preload("uid://bleq38aow0js")
@@ -40,12 +41,13 @@ func show_scenes_list():
 
 func use_scene(key: String):
 	grid_overlay.select_scene_by_key(key)
+	show_preview()
 
 func show_preview():
-	return
 	var scene = grid_overlay.preview_node.duplicate()
 	if scene.get_parent():
 		scene.get_parent().remove_child(scene)
+	scene.visible = true
 	scene_preview.add_child(scene)
 	
 func delete_scene(key: String):
@@ -59,9 +61,8 @@ func _on_select_pressed() -> void:
 	grid_overlay.set_mode(GridOverlay.Mode.SELECT)
 
 func _on_add_btn_pressed() -> void:
-	var scene: PackedScene = scene_picker.edited_resource
-	var key: String = scene_key_input.text if scene_key_input.text != '' else scene.resource_path
-	grid_overlay.tilemap_layer.tileset[key] = scene
+	var key: String = scene_key_input.text
+	grid_overlay.add_scene_to_tileset(key, grid_overlay.preview_node)
 	show_scenes_list()
 	scene_picker.edited_resource = null
 
