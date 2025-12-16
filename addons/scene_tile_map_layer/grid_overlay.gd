@@ -7,6 +7,7 @@ const MAX_LINES = 200
 enum Mode { DRAW, SELECT }
 
 signal tilemap_layer_changed(SceneTileMapLayer)
+signal editor_property_changed
 
 var editor_plugin: EditorPlugin
 var grid_size: Vector2
@@ -36,6 +37,14 @@ func _ready():
 	set_process(true)
 	set_mouse_filter(MOUSE_FILTER_IGNORE)
 	undo_redo = editor_plugin.get_undo_redo()
+	
+	var inspector := EditorInterface.get_inspector()
+	inspector.property_edited.connect(_on_props_changed)
+
+func _on_props_changed(_property: String):
+	if not enabled:
+		return
+	editor_property_changed.emit()
 
 func _process(delta):
 	queue_redraw()
@@ -176,6 +185,7 @@ func _add_preview(): # TODO: check
 
 func show_preview_node_properties():
 	EditorInterface.get_inspector().edit(preview_node)
+	editor_property_changed.emit()
 
 func remove_preview():
 	if preview_node != null:

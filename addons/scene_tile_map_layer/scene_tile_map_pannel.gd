@@ -13,6 +13,7 @@ var scene_picker: EditorResourcePicker
 func _ready() -> void:
 	if grid_overlay:
 		grid_overlay.tilemap_layer_changed.connect(on_tilemap_layer_changed)
+		grid_overlay.editor_property_changed.connect(show_pannel_preview)
 	
 	if Engine.is_editor_hint():
 		scene_picker = EditorResourcePicker.new()
@@ -26,7 +27,7 @@ func on_tilemap_layer_changed(tilemap_layer: SceneTileMapLayer) -> void:
 	if tilemap_layer == null:
 		return
 	show_scenes_list()
-	show_preview()
+	show_pannel_preview()
 
 func remove_children(node: Node):
 	for child in node.get_children():
@@ -44,9 +45,9 @@ func show_scenes_list():
 
 func use_scene(key: String):
 	grid_overlay.select_scene_by_key(key)
-	show_preview()
+	show_pannel_preview()
 
-func show_preview():
+func show_pannel_preview():
 	remove_children(scene_preview)
 	var scene = grid_overlay.preview_node.duplicate()
 	if scene.get_parent():
@@ -75,4 +76,4 @@ func _on_load_btn_pressed() -> void:
 	var scene = scene_picker.edited_resource.instantiate()
 	grid_overlay.clone_preview(scene)
 	grid_overlay.show_preview_node_properties()
-	show_preview()
+	show_pannel_preview()

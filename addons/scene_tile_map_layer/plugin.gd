@@ -31,6 +31,7 @@ func _exit_tree():
 	if grid_overlay:
 		grid_overlay.queue_free()
 
+
 func _on_selection_changed():
 	var nodes = selection.get_selected_nodes()
 	if nodes.size() == 1 and nodes[0] is SceneTileMapLayer:
