@@ -173,7 +173,6 @@ func _make_preview(scene: Node2D) -> void:
 	if preview_node.get_parent():
 		preview_node.get_parent().remove_child(preview_node)
 	preview_node.name = '_preview_node_tscn_key'
-	preview_node.z_index = 10
 	preview_node.position = old_pos
 	preview_node.visible = mode == Mode.DRAW
 	assert(preview_node != null)

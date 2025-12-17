@@ -1,45 +1,110 @@
-[gd_scene load_steps=6 format=3 uid="uid://7gcufqg3e845"]
+[gd_scene load_steps=5 format=3 uid="uid://7gcufqg3e845"]
 
 [ext_resource type="Script" uid="uid://bdn8a2ygt0y8" path="res://addons/scene_tile_map_layer/scene_tile_map_layer.gd" id="1_ytiva"]
 [ext_resource type="Script" uid="uid://d36v1nxhrdo75" path="res://addons/scene_tile_map_layer/scene_tile_set.gd" id="2_dar0o"]
 [ext_resource type="PackedScene" uid="uid://df2rjqj23abjy" path="res://demo/scenes/scene_1.tscn" id="3_j5lb4"]
-[ext_resource type="Script" uid="uid://cv2v71r48u41n" path="res://demo/scenes/scene_1.gd" id="4_j5lb4"]
 
-[sub_resource type="Resource" id="Resource_u10mr"]
+[sub_resource type="Resource" id="Resource_j5lb4"]
 script = ExtResource("2_dar0o")
+props = Dictionary[String, Variant]({
+"other": {
+"_import_path": NodePath(""),
+"auto_translate_mode": 0,
+"clip_children": 0,
+"color": Color(0.2901961, 0.2784314, 1, 1),
+"editor_description": "",
+"light_mask": 1,
+"material": null,
+"modulate": Color(1, 1, 1, 1),
+"physics_interpolation_mode": 0,
+"position": Vector2(32, 480),
+"process_physics_priority": 0,
+"process_priority": 0,
+"process_thread_group": 0,
+"rotation": 0.0,
+"scale": Vector2(1, 1),
+"self_modulate": Color(1, 1, 1, 1),
+"show_behind_parent": false,
+"skew": 0.0,
+"texture_filter": 0,
+"texture_repeat": 0,
+"top_level": false,
+"unique_name_in_owner": false,
+"use_parent_material": false,
+"visibility_layer": 1,
+"visible": false,
+"y_sort_enabled": false,
+"z_as_relative": true,
+"z_index": 10
+}
+})
+paths = Dictionary[String, String]({
+"other": "res://demo/scenes/scene_1.tscn"
+})
 metadata/_custom_type_script = "uid://d36v1nxhrdo75"
 
 [node name="Demo" type="Node2D"]
 
 [node name="SceneTileMapLayer" type="Node2D" parent="."]
 script = ExtResource("1_ytiva")
-tileset = SubResource("Resource_u10mr")
+tileset = SubResource("Resource_j5lb4")
 metadata/_custom_type_script = "uid://bdn8a2ygt0y8"
 
-[node name="_preview_node_tscn_key" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
-z_index = 10
-position = Vector2(-32, -32)
-script = ExtResource("4_j5lb4")
-
-[node name="@Node2D@27605" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+[node name="_preview_node_tscn_key" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
 z_index = 10
 position = Vector2(32, -32)
-script = ExtResource("4_j5lb4")
 
-[node name="@Node2D@27788" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+[node name="@Node2D@30800" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
 z_index = 10
 position = Vector2(96, -32)
-script = ExtResource("4_j5lb4")
-color = Color(0.2784314, 0.26666668, 1, 1)
 
-[node name="@Node2D@27789" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+[node name="@Node2D@30801" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
 z_index = 10
-position = Vector2(96, -96)
-script = ExtResource("4_j5lb4")
-color = Color(0.2784314, 0.26666668, 1, 1)
+position = Vector2(160, -32)
 
-[node name="@Node2D@27790" type="Node2D" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+[node name="@Node2D@30983" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
 z_index = 10
-position = Vector2(96, -160)
-script = ExtResource("4_j5lb4")
-color = Color(0.2784314, 0.26666668, 1, 1)
+position = Vector2(-32, -96)
+color = Color(0.2901961, 0.2784314, 1, 1)
+
+[node name="@Node2D@30984" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(-32, -160)
+color = Color(0.2901961, 0.2784314, 1, 1)
+
+[node name="@Node2D@30985" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(-32, -224)
+color = Color(0.2901961, 0.2784314, 1, 1)
+
+[node name="@Node2D@31672" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(224, -32)
+
+[node name="@Node2D@31673" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(288, -32)
+
+[node name="@Node2D@31674" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(352, -32)
+
+[node name="@Node2D@34153" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(480, -96)
+
+[node name="@Node2D@34154" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(480, -160)
+
+[node name="@Node2D@34155" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(480, -224)
+
+[node name="@Node2D@34156" parent="SceneTileMapLayer" instance=ExtResource("3_j5lb4")]
+z_index = 10
+position = Vector2(480, -288)
+
+[node name="SceneTileMapLayer2" type="Node2D" parent="."]
+script = ExtResource("1_ytiva")
+metadata/_custom_type_script = "uid://bdn8a2ygt0y8"
