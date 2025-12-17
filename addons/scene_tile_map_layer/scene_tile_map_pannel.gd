@@ -23,8 +23,18 @@ func _ready() -> void:
 		scene_picker.custom_minimum_size = Vector2(150, 5)
 		scene_picker.base_type = "PackedScene"
 		scene_picker.custom_minimum_size = scene_loader_container.custom_minimum_size
+		scene_picker.resource_changed.connect(on_scene_picker_resource_changed)
 		scene_loader_container.add_child(scene_picker)
 		scene_picker.show()
+
+func on_scene_picker_resource_changed(_res: PackedScene) -> void:
+	if scene_picker.edited_resource == null:
+		return
+	var scene = scene_picker.edited_resource.instantiate()
+	grid_overlay.clone_preview(scene)
+	grid_overlay.show_preview_node_properties()
+	show_pannel_preview()
+	scene_picker.edited_resource = null
 
 func on_tilemap_layer_changed(tilemap_layer: SceneTileMapLayer) -> void:
 	if tilemap_layer == null or tilemap_layer.tileset == null:
@@ -39,6 +49,7 @@ func on_enabled_changed(enabled: bool) -> void:
 		show_pannel_preview()
 	else:
 		root.visible = false
+		remove_children(scene_preview)
 
 func remove_children(node: Node) -> void:
 	for child in node.get_children():
@@ -87,8 +98,7 @@ func _on_add_btn_pressed() -> void:
 	scene_picker.edited_resource = null
 	scene_key_input.text = ''
 
-func _on_load_btn_pressed() -> void:
-	var scene = scene_picker.edited_resource.instantiate()
-	grid_overlay.clone_preview(scene)
-	grid_overlay.show_preview_node_properties()
-	show_pannel_preview()
+func _on_scene_key_text_changed() -> void:
+	if '\n' in scene_key_input.text:
+		scene_key_input.text = scene_key_input.text.split('\n')[0]
+		_on_add_btn_pressed()

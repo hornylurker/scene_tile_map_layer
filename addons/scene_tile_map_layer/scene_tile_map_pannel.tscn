@@ -43,15 +43,11 @@ theme_override_constants/separation = 10
 
 [node name="Label2" type="Label" parent="Root/Header"]
 layout_mode = 2
-text = "View"
+text = "Open"
 
 [node name="SceneLoaderContainer" type="Control" parent="Root/Header"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-
-[node name="LoadBtn" type="Button" parent="Root/Header"]
-layout_mode = 2
-text = "Load"
 
 [node name="VSeparator" type="VSeparator" parent="Root/Header"]
 layout_mode = 2
@@ -59,7 +55,7 @@ theme_override_constants/separation = 10
 
 [node name="Label3" type="Label" parent="Root/Header"]
 layout_mode = 2
-text = "Write"
+text = "Key"
 
 [node name="SceneKeyInput" type="TextEdit" parent="Root/Header"]
 custom_minimum_size = Vector2(200, 0)
@@ -67,8 +63,7 @@ layout_mode = 2
 
 [node name="AddBtn" type="Button" parent="Root/Header"]
 layout_mode = 2
-text = "Add
-"
+text = "Save"
 
 [node name="Body" type="HBoxContainer" parent="Root"]
 layout_mode = 2
@@ -119,5 +114,5 @@ grow_vertical = 2
 
 [connection signal="pressed" from="Root/Header/DrawBtn" to="." method="_on_draw_pressed"]
 [connection signal="pressed" from="Root/Header/SelectBtn" to="." method="_on_select_pressed"]
-[connection signal="pressed" from="Root/Header/LoadBtn" to="." method="_on_load_btn_pressed"]
+[connection signal="text_changed" from="Root/Header/SceneKeyInput" to="." method="_on_scene_key_text_changed"]
 [connection signal="pressed" from="Root/Header/AddBtn" to="." method="_on_add_btn_pressed"]

@@ -127,6 +127,8 @@ func on_grid_size_changed(grid_size_: Vector2) -> void:
 
 func on_tileset_changed(tileset: SceneTileSet) -> void:
 	enabled = tileset != null
+	if not enabled:
+		remove_preview()
 
 func handle_gui_input(event: InputEvent) -> bool:
 	if not enabled or tilemap_layer == null:
@@ -186,6 +188,7 @@ func remove_preview() -> void:
 	if preview_node != null:
 		if preview_node.get_parent():
 			preview_node.get_parent().remove_child(preview_node)
+		preview_node = null
 
 func preview_scene_at(tile: Vector2i) -> void:
 	if preview_node != null:
