@@ -70,9 +70,11 @@ func _on_select_pressed() -> void:
 
 func _on_add_btn_pressed() -> void:
 	var key: String = scene_key_input.text
-	grid_overlay.add_scene_to_tileset(key, grid_overlay.preview_node)
+	if not grid_overlay.add_scene_to_tileset(key, grid_overlay.preview_node):
+		return
 	show_scenes_list()
 	scene_picker.edited_resource = null
+	scene_key_input.text = ''
 
 func _on_load_btn_pressed() -> void:
 	var scene = scene_picker.edited_resource.instantiate()

@@ -44,7 +44,7 @@ func _on_selection_changed():
 	else:
 		current_tilemap = null
 		if grid_overlay.enabled:
-			grid_overlay.clear_tilemap_layer()
+			grid_overlay.set_tilemap_layer(null)
 
 func _handles(object: Object) -> bool:
 	return true

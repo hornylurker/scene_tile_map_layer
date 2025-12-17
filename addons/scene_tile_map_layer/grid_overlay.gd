@@ -16,12 +16,7 @@ var line_width: int
 
 var enabled := false
 var mode: Mode = Mode.SELECT
-var tilemap_layer: SceneTileMapLayer = null:
-	get():
-		return tilemap_layer
-	set(value):
-		tilemap_layer = value
-		tilemap_layer_changed.emit(value)
+var tilemap_layer: SceneTileMapLayer = null
 var preview_node: Node2D
 var undo_redo: EditorUndoRedoManager
 
@@ -92,17 +87,19 @@ func draw_grid(size: Vector2, transform: Transform2D):
 			grid_color, line_width)
 
 func set_tilemap_layer(layer: SceneTileMapLayer) -> void:
+	if tilemap_layer == layer:
+		return
 	if tilemap_layer != null:
-		clear_tilemap_layer()
-	tilemap_layer = layer
-	tilemap_layer.grid_size_changed.connect(on_grid_size_changed)
-	enabled = true
+		remove_preview()
+		tilemap_layer.grid_size_changed.disconnect(on_grid_size_changed)
+		tilemap_layer = null
+		enabled = false
+	if layer != null:
+		tilemap_layer = layer
+		tilemap_layer.grid_size_changed.connect(on_grid_size_changed)
+		enabled = true
+	tilemap_layer_changed.emit(tilemap_layer)
 
-func clear_tilemap_layer() -> void:
-	remove_preview()
-	tilemap_layer.grid_size_changed.disconnect(on_grid_size_changed)
-	tilemap_layer = null
-	enabled = false
 	
 func set_mode(new_mode: Mode) -> void:
 	mode = new_mode
@@ -221,11 +218,20 @@ func select_scene_by_key(key: String):
 	init_preview(key)
 	show_preview_node_properties()
 
-func add_scene_to_tileset(key: String, node: Node2D):
-	assert(node != null)
+func add_scene_to_tileset(key: String, node: Node2D) -> bool:
+	if key == '':
+		push_warning("Can't add key '' to tileset. Specify real name.")
+		return false
+	if key in tilemap_layer.tileset.keys():
+		push_warning("Can't add key duplicated '%s' to tileset." % key)
+		return false
+	if node == null:
+		push_warning("Can't add scene <null> to tileset. Select or load it first.")
+		return false
 	var packed := PackedScene.new()
 	packed.pack(node)
 	tilemap_layer.tileset[key] = packed
+	return true
 
 func undo_redo_place_scene_at(tile: Vector2i) -> void:
 	var scene = preview_node.duplicate()

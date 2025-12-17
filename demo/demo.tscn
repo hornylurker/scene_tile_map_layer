@@ -1,7 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://7gcufqg3e845"]
+[gd_scene load_steps=7 format=3 uid="uid://7gcufqg3e845"]
 
 [ext_resource type="Script" uid="uid://bdn8a2ygt0y8" path="res://addons/scene_tile_map_layer/scene_tile_map_layer.gd" id="1_d6po2"]
 [ext_resource type="PackedScene" uid="uid://df2rjqj23abjy" path="res://demo/scenes/scene_1.tscn" id="2_ytiva"]
+[ext_resource type="Script" uid="uid://cv2v71r48u41n" path="res://demo/scenes/scene_1.gd" id="3_dar0o"]
+[ext_resource type="Texture2D" uid="uid://o364udsugooi" path="res://icon.svg" id="3_j5lb4"]
+
+[sub_resource type="PackedScene" id="PackedScene_u10mr"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("_preview_node_tscn_key", "visible", "z_index", "script", "Node2D", "Sprite2D", "texture", "region_enabled", "region_rect"),
+"node_count": 2,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 4, 0, -1, 3, 1, 0, 2, 1, 3, 2, 0, 0, 0, 5, 5, -1, 3, 6, 3, 7, 4, 8, 5, 0),
+"variants": [false, 10, ExtResource("3_dar0o"), ExtResource("3_j5lb4"), true, Rect2(16, 16, 64, 64)],
+"version": 3
+}
 
 [sub_resource type="TileSet" id="TileSet_ytiva"]
 
@@ -9,6 +24,9 @@
 
 [node name="SceneTileMapLayer" type="Node2D" parent="."]
 script = ExtResource("1_d6po2")
+tileset = Dictionary[String, PackedScene]({
+"d": SubResource("PackedScene_u10mr")
+})
 metadata/_custom_type_script = "uid://bdn8a2ygt0y8"
 
 [node name="@Node2D@30410" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
@@ -67,6 +85,15 @@ position = Vector2(32, 32)
 z_index = 10
 position = Vector2(-32, -96)
 rotation = 1.5707964
+
+[node name="@Node2D@23770" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+z_index = 10
+position = Vector2(-672, -160)
+color = Color(0.29803923, 0.30980393, 1, 1)
+
+[node name="@Node2D@24870" parent="SceneTileMapLayer" instance=ExtResource("2_ytiva")]
+z_index = 10
+position = Vector2(-672, 160)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_ytiva")
