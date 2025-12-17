@@ -11,4 +11,4 @@ signal grid_size_changed(Vector2)
 		grid_size = value
 		grid_size_changed.emit(grid_size)
 		
-@export var tileset: Dictionary[String, PackedScene] = {}
+@export var tileset: SceneTileSet = SceneTileSet.new()

@@ -29,25 +29,25 @@ func on_tilemap_layer_changed(tilemap_layer: SceneTileMapLayer) -> void:
 	show_scenes_list()
 	show_pannel_preview()
 
-func remove_children(node: Node):
+func remove_children(node: Node) -> void:
 	for child in node.get_children():
 		node.remove_child(child)
 
-func show_scenes_list():
+func show_scenes_list() -> void:
 	const PANNEL_ROW = preload("uid://bleq38aow0js")
 	remove_children(scenes_list)
-	for key in grid_overlay.tilemap_layer.tileset:
+	for key in grid_overlay.tilemap_layer.tileset.scenes_list():
 		var scene: SceneTileMapPannelRow = PANNEL_ROW.instantiate()
 		scene.key = key
 		scenes_list.add_child(scene)
 		scene.use_clicked.connect(use_scene)
 		scene.delete_clicked.connect(delete_scene)
 
-func use_scene(key: String):
+func use_scene(key: String) -> void:
 	grid_overlay.select_scene_by_key(key)
 	show_pannel_preview()
 
-func show_pannel_preview():
+func show_pannel_preview() -> void:
 	remove_children(scene_preview)
 	if grid_overlay.preview_node == null:
 		return
@@ -58,8 +58,8 @@ func show_pannel_preview():
 	scene_preview.add_child(scene)
 	scene.position = Vector2.ZERO
 
-func delete_scene(key: String):
-	grid_overlay.tilemap_layer.tileset.erase(key)
+func delete_scene(key: String) -> void:
+	grid_overlay.tilemap_layer.tileset.scene_erase(key)
 	show_scenes_list()
 
 func _on_draw_pressed() -> void:

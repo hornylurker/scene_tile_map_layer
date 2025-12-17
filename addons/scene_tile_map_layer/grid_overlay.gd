@@ -20,13 +20,13 @@ var tilemap_layer: SceneTileMapLayer = null
 var preview_node: Node2D
 var undo_redo: EditorUndoRedoManager
 
-func _init(editor_plugin_: EditorPlugin, grid_size_: Vector2, grid_color_: Color, line_width_: int):
+func _init(editor_plugin_: EditorPlugin, grid_size_: Vector2, grid_color_: Color, line_width_: int) -> void:
 	editor_plugin = editor_plugin_
 	grid_size = grid_size_
 	grid_color = grid_color_
 	line_width = line_width_
 
-func _ready():
+func _ready() -> void:
 	set_process(true)
 	set_mouse_filter(MOUSE_FILTER_IGNORE)
 	undo_redo = editor_plugin.get_undo_redo()
@@ -34,15 +34,15 @@ func _ready():
 	var inspector := EditorInterface.get_inspector()
 	inspector.property_edited.connect(_on_props_changed)
 
-func _on_props_changed(_property: String):
+func _on_props_changed(_property: String) -> void:
 	if not enabled:
 		return
 	editor_property_changed.emit()
 
-func _process(delta):
+func _process(delta) -> void:
 	queue_redraw()
 
-func _draw():
+func _draw() -> void:
 	if not enabled:
 		return
 
@@ -51,7 +51,7 @@ func _draw():
 		EditorInterface.get_editor_viewport_2d().global_canvas_transform,
 	)
 
-func draw_grid(size: Vector2, transform: Transform2D):
+func draw_grid(size: Vector2, transform: Transform2D) -> void:
 	var offset = transform.origin
 	var scale := transform.get_scale()
 	var num_to_negative: Vector2i = offset / scale / grid_size
@@ -99,7 +99,6 @@ func set_tilemap_layer(layer: SceneTileMapLayer) -> void:
 		tilemap_layer.grid_size_changed.connect(on_grid_size_changed)
 		enabled = true
 	tilemap_layer_changed.emit(tilemap_layer)
-
 	
 func set_mode(new_mode: Mode) -> void:
 	mode = new_mode
@@ -146,13 +145,13 @@ func handle_gui_input(event: InputEvent) -> bool:
 		return true
 	return false
 
-func init_preview(key: String):
-	_make_preview(tilemap_layer.tileset[key].instantiate())
+func init_preview(key: String) -> void:
+	_make_preview(tilemap_layer.tileset.scene_get_instance(key))
 
-func clone_preview(scene: Node2D):
+func clone_preview(scene: Node2D) -> void:
 	_make_preview(scene.duplicate())
 
-func _make_preview(scene: Node2D):
+func _make_preview(scene: Node2D) -> void:
 	var old_pos := Vector2.ZERO
 	if preview_node != null:
 		old_pos = preview_node.position
@@ -168,11 +167,11 @@ func _make_preview(scene: Node2D):
 	assert(not preview_node.get_parent())
 	add_child(preview_node)
 
-func show_preview_node_properties():
+func show_preview_node_properties() -> void:
 	EditorInterface.get_inspector().edit(preview_node)
 	editor_property_changed.emit()
 
-func remove_preview():
+func remove_preview() -> void:
 	if preview_node != null:
 		if preview_node.get_parent():
 			preview_node.get_parent().remove_child(preview_node)
@@ -214,27 +213,16 @@ func select_scene_at(tile: Vector2i) -> void:
 	clone_preview(scenes[0])
 	show_preview_node_properties()
 
-func select_scene_by_key(key: String):
+func select_scene_by_key(key: String) -> void:
 	init_preview(key)
 	show_preview_node_properties()
 
 func add_scene_to_tileset(key: String, node: Node2D) -> bool:
-	if key == '':
-		push_warning("Can't add key '' to tileset. Specify real name.")
-		return false
-	if key in tilemap_layer.tileset.keys():
-		push_warning("Can't add key duplicated '%s' to tileset." % key)
-		return false
-	if node == null:
-		push_warning("Can't add scene <null> to tileset. Select or load it first.")
-		return false
-	var packed := PackedScene.new()
-	packed.pack(node)
-	tilemap_layer.tileset[key] = packed
-	return true
+	return tilemap_layer.tileset.scene_add(key, node)
 
 func undo_redo_place_scene_at(tile: Vector2i) -> void:
 	var scene = preview_node.duplicate()
+	print(scene)
 	scene.position = tile_to_pos(tile)
 	assert(not scene.get_parent())
 
@@ -247,6 +235,7 @@ func undo_redo_remove_scenes_at(tile: Vector2i) -> void:
 		undo_redo.add_do_method(child, "queue_free")
 		undo_redo.add_undo_method(self, "undo_redo_restore_child", data)
 
+
 func pack_node(child: Node):
 	var packed := PackedScene.new()
 	packed.pack(child)
@@ -257,11 +246,11 @@ func pack_node(child: Node):
 		"index": child.get_index()
 	}
 
-func undo_redo_restore_child(data):
+func undo_redo_restore_child(data) -> void:
 	var node = data.scene.instantiate()
 	data.parent.add_child(node)
 	data.parent.move_child(node, data.index)
 
-func undo_redo_add_child_with_owner(scene):
+func undo_redo_add_child_with_owner(scene) -> void:
 	tilemap_layer.add_child(scene)
 	scene.owner = tilemap_layer.get_tree().edited_scene_root
