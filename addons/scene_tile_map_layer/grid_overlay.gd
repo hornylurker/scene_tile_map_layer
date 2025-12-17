@@ -8,13 +8,19 @@ enum Mode { DRAW, SELECT }
 
 signal tilemap_layer_changed(SceneTileMapLayer)
 signal editor_property_changed
+signal enabled_changed(bool)
 
 var editor_plugin: EditorPlugin
 var grid_size: Vector2
 var grid_color: Color
 var line_width: int
 
-var enabled := false
+var enabled := false:
+	get():
+		return enabled
+	set(value):
+		enabled = value
+		enabled_changed.emit(value)
 var mode: Mode = Mode.SELECT
 var tilemap_layer: SceneTileMapLayer = null
 var preview_node: Node2D
@@ -92,14 +98,16 @@ func set_tilemap_layer(layer: SceneTileMapLayer) -> void:
 	if tilemap_layer != null:
 		remove_preview()
 		tilemap_layer.grid_size_changed.disconnect(on_grid_size_changed)
+		tilemap_layer.tileset_changed.disconnect(on_tileset_changed)
 		tilemap_layer = null
-		enabled = false
+		on_tileset_changed(null)
 	if layer != null:
 		tilemap_layer = layer
 		tilemap_layer.grid_size_changed.connect(on_grid_size_changed)
-		enabled = true
+		tilemap_layer.tileset_changed.connect(on_tileset_changed)
+		on_tileset_changed(tilemap_layer.tileset)
 	tilemap_layer_changed.emit(tilemap_layer)
-	
+
 func set_mode(new_mode: Mode) -> void:
 	mode = new_mode
 	if mode == Mode.DRAW:
@@ -116,6 +124,9 @@ func set_mode(new_mode: Mode) -> void:
 
 func on_grid_size_changed(grid_size_: Vector2) -> void:
 	grid_size = grid_size_
+
+func on_tileset_changed(tileset: SceneTileSet) -> void:
+	enabled = tileset != null
 
 func handle_gui_input(event: InputEvent) -> bool:
 	if not enabled or tilemap_layer == null:

@@ -3,17 +3,20 @@ class_name SceneTileMapPannel
 extends Control
 
 @onready var grid_overlay: GridOverlay
-@onready var header: HBoxContainer = $VBoxContainer/Header
-@onready var scenes_list: VBoxContainer = $VBoxContainer/Body/ScenesPanel/ScrollContainer/ScenesList
+@onready var header: HBoxContainer = $Root/Header
+@onready var scenes_list: VBoxContainer = $Root/Body/ScenesPanel/ScrollContainer/ScenesList
 var scene_picker: EditorResourcePicker
-@onready var scene_loader_container: Control = $VBoxContainer/Header/SceneLoaderContainer
-@onready var scene_preview: Control = $VBoxContainer/Body/ScenePreview/CenterContainer
-@onready var scene_key_input: TextEdit = $VBoxContainer/Header/SceneKeyInput
+@onready var scene_loader_container: Control = $Root/Header/SceneLoaderContainer
+@onready var scene_preview: Control = $Root/Body/ScenePreview/CenterContainer
+@onready var scene_key_input: TextEdit = $Root/Header/SceneKeyInput
+@onready var root: VBoxContainer = $Root
 
 func _ready() -> void:
 	if grid_overlay:
 		grid_overlay.tilemap_layer_changed.connect(on_tilemap_layer_changed)
 		grid_overlay.editor_property_changed.connect(show_pannel_preview)
+		grid_overlay.enabled_changed.connect(on_enabled_changed)
+		on_enabled_changed(grid_overlay.enabled)
 	
 	if Engine.is_editor_hint():
 		scene_picker = EditorResourcePicker.new()
@@ -24,10 +27,18 @@ func _ready() -> void:
 		scene_picker.show()
 
 func on_tilemap_layer_changed(tilemap_layer: SceneTileMapLayer) -> void:
-	if tilemap_layer == null:
+	if tilemap_layer == null or tilemap_layer.tileset == null:
 		return
 	show_scenes_list()
 	show_pannel_preview()
+
+func on_enabled_changed(enabled: bool) -> void:
+	if enabled:
+		root.visible = true
+		show_scenes_list()
+		show_pannel_preview()
+	else:
+		root.visible = false
 
 func remove_children(node: Node) -> void:
 	for child in node.get_children():

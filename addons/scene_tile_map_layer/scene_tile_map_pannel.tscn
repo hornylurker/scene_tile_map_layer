@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g2gdq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Root" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,86 +20,86 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="Root"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Header"]
+[node name="Label" type="Label" parent="Root/Header"]
 layout_mode = 2
 text = "Mode"
 
-[node name="DrawBtn" type="Button" parent="VBoxContainer/Header"]
+[node name="DrawBtn" type="Button" parent="Root/Header"]
 layout_mode = 2
 text = "Draw"
 alignment = 0
 
-[node name="SelectBtn" type="Button" parent="VBoxContainer/Header"]
+[node name="SelectBtn" type="Button" parent="Root/Header"]
 layout_mode = 2
 text = "Select"
 alignment = 0
 
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Header"]
+[node name="VSeparator2" type="VSeparator" parent="Root/Header"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label2" type="Label" parent="VBoxContainer/Header"]
+[node name="Label2" type="Label" parent="Root/Header"]
 layout_mode = 2
 text = "View"
 
-[node name="SceneLoaderContainer" type="Control" parent="VBoxContainer/Header"]
+[node name="SceneLoaderContainer" type="Control" parent="Root/Header"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="LoadBtn" type="Button" parent="VBoxContainer/Header"]
+[node name="LoadBtn" type="Button" parent="Root/Header"]
 layout_mode = 2
 text = "Load"
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Header"]
+[node name="VSeparator" type="VSeparator" parent="Root/Header"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label3" type="Label" parent="VBoxContainer/Header"]
+[node name="Label3" type="Label" parent="Root/Header"]
 layout_mode = 2
 text = "Write"
 
-[node name="SceneKeyInput" type="TextEdit" parent="VBoxContainer/Header"]
+[node name="SceneKeyInput" type="TextEdit" parent="Root/Header"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="AddBtn" type="Button" parent="VBoxContainer/Header"]
+[node name="AddBtn" type="Button" parent="Root/Header"]
 layout_mode = 2
 text = "Add
 "
 
-[node name="Body" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Body" type="HBoxContainer" parent="Root"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScenesPanel" type="VBoxContainer" parent="VBoxContainer/Body"]
+[node name="ScenesPanel" type="VBoxContainer" parent="Root/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Body/ScenesPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Root/Body/ScenesPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScenesList" type="VBoxContainer" parent="VBoxContainer/Body/ScenesPanel/ScrollContainer"]
+[node name="ScenesList" type="VBoxContainer" parent="Root/Body/ScenesPanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PannelRow" parent="VBoxContainer/Body/ScenesPanel/ScrollContainer/ScenesList" instance=ExtResource("2_f85vy")]
+[node name="PannelRow" parent="Root/Body/ScenesPanel/ScrollContainer/ScenesList" instance=ExtResource("2_f85vy")]
 layout_mode = 2
 key = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf"
 
-[node name="PannelRow2" parent="VBoxContainer/Body/ScenesPanel/ScrollContainer/ScenesList" instance=ExtResource("2_f85vy")]
+[node name="PannelRow2" parent="Root/Body/ScenesPanel/ScrollContainer/ScenesList" instance=ExtResource("2_f85vy")]
 layout_mode = 2
 key = "asdf"
 
-[node name="ScenePreview" type="Control" parent="VBoxContainer/Body"]
+[node name="ScenePreview" type="Control" parent="Root/Body"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Body/ScenePreview"]
+[node name="CenterContainer" type="CenterContainer" parent="Root/Body/ScenePreview"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,7 +109,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="VBoxContainer/Body/ScenePreview"]
+[node name="Panel" type="Panel" parent="Root/Body/ScenePreview"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,7 +117,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="VBoxContainer/Header/DrawBtn" to="." method="_on_draw_pressed"]
-[connection signal="pressed" from="VBoxContainer/Header/SelectBtn" to="." method="_on_select_pressed"]
-[connection signal="pressed" from="VBoxContainer/Header/LoadBtn" to="." method="_on_load_btn_pressed"]
-[connection signal="pressed" from="VBoxContainer/Header/AddBtn" to="." method="_on_add_btn_pressed"]
+[connection signal="pressed" from="Root/Header/DrawBtn" to="." method="_on_draw_pressed"]
+[connection signal="pressed" from="Root/Header/SelectBtn" to="." method="_on_select_pressed"]
+[connection signal="pressed" from="Root/Header/LoadBtn" to="." method="_on_load_btn_pressed"]
+[connection signal="pressed" from="Root/Header/AddBtn" to="." method="_on_add_btn_pressed"]
